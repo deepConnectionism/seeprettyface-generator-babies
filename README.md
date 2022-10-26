@@ -55,14 +55,68 @@
 ## 了解技术原理 & 获取训练集：[点此进入](http://www.seeprettyface.com/)
 ![Image text](https://github.com/a312863063/seeprettyface/blob/master/EP001-01.png)<br/><br/><br/>
 
-## 小小的赞助~
-<p align="center">
-	<img src="https://github.com/a312863063/seeprettyface/blob/master/sponsor.jpg" alt="Sample"  width="324" height="504">
-	<p align="center">
-		<em>若对您有帮助可给予小小的赞助~</em>
-	</p>
-</p>
-<br/><br/><br/>
+## 实践经验：
+
+原始项目地址：https://github.com/a312863063/seeprettyface-generator-babies
+
+### 1.介绍
+
+本文是运行一个 `StyleGAN` 训练出的萌娃人脸生成器。
+
+### 2. 实践过程
+
+#### 1.1 下载代码库
+#### 1.2 下载预训练权重
+
+下载链接在：seeprettyface-generator-babies/model/模型下载后放在这里.txt 说明中：
+
+	百度网盘：
+		链接：https://pan.baidu.com/s/1Txa3HPxcWfL_mQynTxBJ-g 
+		提取码：movs 
+
+FK 百度网盘，太慢了。
+
+下载解压后放在：
+
+	model/
+	├── classifier-smiling.pkl
+	├── generator_kids.pkl
+
+#### 1.3 配置环境
+
+注释掉 `generate_kid.py`:
+
+	# from aip import AipFace
+	
+创建一个 conda 环境：
+
+	# 注意，python 不能选择3.8及以上，因为要装 tensorflow1.x
+	conda create -n gan python=3.6
+	# 安装一些必要包 PIL 的包名字叫 pillow
+	pip install numpy pillow requests -i https://pypi.tuna.tsinghua.edu.cn/simple 
+	# 安装 tensorflow-gpu
+	conda install tensorflow-gpu==1.15
+
+#### 遇到错误
+
+安装 tensorflow-gpu ， 但是我遇到了如下错误:
+
+	InvalidArchiveError("Error with archive /home/我的用户名/conda/pkgs/tensorflow-base-1.15.0-gpu_py36h9dcbed7_0/.cph_tmpli1l9i4d/pkg-tensorflow-base-1.15.0-gpu_py36h9dcbed7_0.tar.zst.  You probably need to delete and re-download or re-create this file.  Message from libarchive was:\n\nFailed to create dir 'lib/python3.6/site-packages/tensorflow_core/include/external/com_github_googleapis_googleapis'")
+	
+**解决：**
+
+参考：https://blog.csdn.net/eaxy_z/article/details/120293066
+
+	conda clean -p		# 删除未使用的包
+	conda clean -t		# 删除缓存的tarballs包
+	conda clean -a		# 删除所有缓存的数据（包括索引缓存等 ）
+	
+然后，重新运行：
+
+	conda install tensorflow-gpu==1.15
+	
+完美运行，在 result 下生成了 20只 萌娃，还有对应的 result/generate_code。
+
 
 
 
